@@ -1,0 +1,23 @@
+function csvToArray($path){
+    $file = fopen($path, 'r');
+    $getCsvArr = array();
+    $csvDataArr = array();
+    $csvData = array();
+    $count = 0; 
+        while ($row = fgetcsv($file)) {
+            $getCsvArr[$count] = $row;             
+            $count++;
+        }
+        if(count($getCsvArr) > 0){
+            $csvDataArr = array_shift($getCsvArr);
+            $counter = 0;
+            foreach($getCsvArr as $csvValue){
+                $totalRec = count($csvValue);
+                for($i = 0; $i < $totalRec ; $i++){
+                    $csvData[$counter][$csvDataArr[$i]] = isset($csvValue[$i])?$csvValue[$i]:'';
+                }
+                $counter++;
+            }
+        }
+    return $csvData;
+}
